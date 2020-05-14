@@ -39,9 +39,8 @@ import java.util.function.Function;
 /**
  * The type Rpc client.
  *
- * @author jimin.jm @alibaba-inc.com
+ * @author slievrly
  * @author zhaojun
- * @date 2018 /10/23
  */
 @Sharable
 public final class TmRpcClient extends AbstractRpcRemotingClient {
@@ -152,6 +151,9 @@ public final class TmRpcClient extends AbstractRpcRemotingClient {
     @Override
     public void onRegisterMsgSuccess(String serverAddress, Channel channel, Object response,
                                      AbstractMessage requestMessage) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("register TM success. server version:{},channel:{}", ((RegisterTMResponse)response).getVersion(), channel);
+        }
         getClientChannelManager().registerChannel(serverAddress, channel);
     }
 
